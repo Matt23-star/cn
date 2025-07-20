@@ -1,160 +1,616 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Swagger | Hello World!</title><meta name="author" content="Hao Feng"><meta name="copyright" content="Hao Feng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Usual annotations of Swagger in different layers, enter the front page of it and create static Swagger files.">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Hao Feng">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://matt23-star.github.io/2021/07/swagger/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swagger">
 <meta property="og:url" content="https://matt23-star.github.io/2021/07/Swagger/index.html">
 <meta property="og:site_name" content="Hello World!">
-<meta property="og:description" content="Usual annotations of Swagger in different layers, enter the front page of it and create static Swagger files.">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg">
-<meta property="article:published_time" content="2021-07-17T08:47:00.000Z">
+<meta property="og:image" content="https://matt23-star.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2021-07-16T17:47:00.000Z">
 <meta property="article:modified_time" content="2024-03-02T23:06:01.830Z">
 <meta property="article:author" content="Hao Feng">
 <meta property="article:tag" content="Spring Boot">
 <meta property="article:tag" content="Swagger">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg"><link rel="shortcut icon" href="/img/HF.png"><link rel="canonical" href="https://matt23-star.github.io/2021/07/Swagger/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":"30px"},
-  copy: {
-    success: 'Copy Successful',
-    error: 'Copy Error',
-    noSupport: 'Browser Not Supported'
-  },
-  relativeDate: {
-    homepage: true,
-    post: true
-  },
-  runtime: '',
-  dateSuffix: {
-    just: 'Just now',
-    min: 'minutes ago',
-    hour: 'hours ago',
-    day: 'days ago',
-    month: 'months ago'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
-    buttonText: 'Load More'
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'Swagger',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: undefined,
-  isToc: true,
-  postUpdate: '2024-03-03 07:06:01'
-}</script><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
+<meta name="twitter:image" content="https://matt23-star.github.io/images/redefine-og.webp">
     
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/HF.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/HF.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/HF.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Swagger | Matt&#39;s Journey Notes
+        
+    </title>
 
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
 
-        document.head.appendChild(script)
-      })
+
+    <!--- Inject Part-->
     
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
+
     
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
+<link rel="stylesheet" href="/css/style.css">
+
+
     
-        if (t === 'dark') activateDarkMode()
-        else if (t === 'light') activateLightMode()
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
     
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/index.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Hello World!"><span class="site-name">Hello World!</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Swagger</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-07-17T08:47:00.000Z" title="Created 2021-07-17 16:47:00">2021-07-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-02T23:06:01.830Z" title="Updated 2024-03-03 07:06:01">2024-03-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Notebook/">Notebook</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Notebook/Spring-Boot/">Spring Boot</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Swagger"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h1><blockquote>
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"matt23-star.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Matt's Journey Notes","subtitle":{"text":["How to Train Your Dragon?"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Status":{"icon":"fa-regular fa-chart-bar"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/Matt23-star","Blog":"https://matt23-star.github.io/","Friends":"/friends"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Matt&#39;s Journey Notes
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-chart-bar fa-fw"></i>
+                                    STATUS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/Matt23-star">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://matt23-star.github.io/">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                STATUS
+                            </span>
+                            
+                                <i class="fa-regular fa-chart-bar fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/Matt23-star">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://matt23-star.github.io/">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg" alt="Swagger" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">Swagger</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Hao Feng</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2021-07-17 01:47</span>
+        <span class="mobile">2021-07-17 01:47</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-03-03 07:06:01</span>
+            <span class="mobile">2024-03-03 07:06:01</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Notebook/">Notebook</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Notebook/Spring-Boot/">Spring Boot</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Spring-Boot/">Spring Boot</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Swagger/">Swagger</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h1><blockquote>
 <p> 通过Swagger规范，只需要按照规范去定义接口及接口相关的信息。再通过Swagger衍生出来的一系列项目和工具，就可以做到生成各种格式的接口文档，生成多种语言的客户端和服务端的代码，以及在线接口调试页面等等。</p>
 </blockquote>
 <hr>
@@ -163,7 +619,7 @@
 <p>tags：说明该类的作用，参数是个数组，可以填多个。<br>description &#x3D; “用户基本信息操作”<br>value&#x3D;”该参数没什么意义，在UI界面上不显示，所以不用配置”<br>格式：tags&#x3D;{“作用1”,”作用2”} </p>
 </blockquote>
 <p>代码示例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Api(tags=&#123;&quot;用户接口&quot;&#125;)</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Api(tags=&#123;&quot;用户接口&quot;&#125;)</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <h5 id="ApiOperation-用于方法上，说明方法的作用，每一个接口的定义"><a href="#ApiOperation-用于方法上，说明方法的作用，每一个接口的定义" class="headerlink" title="@ApiOperation 用于方法上，说明方法的作用，每一个接口的定义"></a>@ApiOperation 用于方法上，说明方法的作用，每一个接口的定义</h5><p>主要参数</p>
 <blockquote>
@@ -174,19 +630,19 @@
 <p>name&#x3D;”参数名称”<br>value&#x3D;”参数的简要说明”<br>defaultValue&#x3D;”参数默认值”<br>required&#x3D;”true” 表示属性是否必填，默认为false</p>
 </blockquote>
 <p> 代码示例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ApiOperation(value=&quot;新增用户&quot;, notes=&quot;详细描述&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserDto <span class="title function_">addUser</span><span class="params">(<span class="meta">@ApiParam(value = &quot;新增用户参数&quot;, required = true)</span> <span class="meta">@RequestBody</span> AddUserParam param)</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ApiOperation(value=&quot;新增用户&quot;, notes=&quot;详细描述&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserDto <span class="title function_">addUser</span><span class="params">(<span class="meta">@ApiParam(value = &quot;新增用户参数&quot;, required = true)</span> <span class="meta">@RequestBody</span> AddUserParam param)</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <h5 id="ApiImplicitParam-用于方法上，为单独的请求参数进行说明"><a href="#ApiImplicitParam-用于方法上，为单独的请求参数进行说明" class="headerlink" title="@ApiImplicitParam  用于方法上，为单独的请求参数进行说明"></a>@ApiImplicitParam  用于方法上，为单独的请求参数进行说明</h5><h5 id="ApiImplicitParams-是组装了多个-ApiImplicitParam"><a href="#ApiImplicitParams-是组装了多个-ApiImplicitParam" class="headerlink" title="@ApiImplicitParams 是组装了多个@ApiImplicitParam"></a>@ApiImplicitParams 是组装了多个@ApiImplicitParam</h5><p>主要参数</p>
 <blockquote>
 <p>name&#x3D;”参数ming”<br>    value&#x3D;”参数说明”<br>    dataType&#x3D;”参数数据类型”<br>    paramType&#x3D;”query” 表示参数放在哪里<br>        · header 请求参数的获取：@RequestHeader<br>        · query  请求参数的获取：@RequestParam<br>        · path（用于restful接口）请求参数的获取：@PathVariable<br>        · body（不常用）<br>        · form（不常用）<br>    defaultValue&#x3D;”参数的默认值”<br>    required&#x3D;”true” 表示是否必须传递参数    </p>
 </blockquote>
 <p>代码示例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ApiImplicitParams(&#123;</span></span><br><span class="line"><span class="meta">        @ApiImplicitParam(name = &quot;id&quot;, value = &quot;用户ID&quot;, dataType = &quot;string&quot;, paramType = &quot;path&quot;, required = true, defaultValue = &quot;1&quot;) &#125;)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/user/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserDto <span class="title function_">getUser</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> String id)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDto</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ApiImplicitParams(&#123;</span></span><br><span class="line"><span class="meta">        @ApiImplicitParam(name = &quot;id&quot;, value = &quot;用户ID&quot;, dataType = &quot;string&quot;, paramType = &quot;path&quot;, required = true, defaultValue = &quot;1&quot;) &#125;)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/user/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserDto <span class="title function_">getUser</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> String id)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDto</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="方法响应说明"><a href="#方法响应说明" class="headerlink" title="方法响应说明"></a>方法响应说明</h4><h5 id="ApiResponse-用于方法上，根据响应码表示不同响应"><a href="#ApiResponse-用于方法上，根据响应码表示不同响应" class="headerlink" title="@ApiResponse 用于方法上，根据响应码表示不同响应"></a>@ApiResponse 用于方法上，根据响应码表示不同响应</h5><h5 id="ApiResponses-组装多个-ApiResponse"><a href="#ApiResponses-组装多个-ApiResponse" class="headerlink" title="@ApiResponses 组装多个@ApiResponse"></a>@ApiResponses 组装多个@ApiResponse</h5><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">code=&quot;404&quot;    表示响应码(int型)，可自定义</span><br><span class="line">message=&quot;状态码对应的响应信息&quot;   </span><br></pre></td></tr></table></figure>
+<h4 id="方法响应说明"><a href="#方法响应说明" class="headerlink" title="方法响应说明"></a>方法响应说明</h4><h5 id="ApiResponse-用于方法上，根据响应码表示不同响应"><a href="#ApiResponse-用于方法上，根据响应码表示不同响应" class="headerlink" title="@ApiResponse 用于方法上，根据响应码表示不同响应"></a>@ApiResponse 用于方法上，根据响应码表示不同响应</h5><h5 id="ApiResponses-组装多个-ApiResponse"><a href="#ApiResponses-组装多个-ApiResponse" class="headerlink" title="@ApiResponses 组装多个@ApiResponse"></a>@ApiResponses 组装多个@ApiResponse</h5><div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="code"><pre><span class="line">code=&quot;404&quot;    表示响应码(int型)，可自定义</span><br><span class="line">message=&quot;状态码对应的响应信息&quot;   </span><br></pre></td></tr></table></figure></div>
 
 <p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ApiResponses(&#123; @ApiResponse(code = 200, message = &quot;OK&quot;, response = UserDto.class) &#125;)</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserDto <span class="title function_">addUser</span><span class="params">(<span class="meta">@ApiParam(value = &quot;新增用户参数&quot;, required = true)</span> <span class="meta">@RequestBody</span> AddUserParam param)</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ApiResponses(&#123; @ApiResponse(code = 200, message = &quot;OK&quot;, response = UserDto.class) &#125;)</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserDto <span class="title function_">addUser</span><span class="params">(<span class="meta">@ApiParam(value = &quot;新增用户参数&quot;, required = true)</span> <span class="meta">@RequestBody</span> AddUserParam param)</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="model实体层中"><a href="#model实体层中" class="headerlink" title="model实体层中"></a>model实体层中</h3><h4 id="ApiModel-用于响应实体类，用于说明实体作用"><a href="#ApiModel-用于响应实体类，用于说明实体作用" class="headerlink" title="@ApiModel 用于响应实体类，用于说明实体作用"></a>@ApiModel 用于响应实体类，用于说明实体作用</h4><p>主要参数</p>
 <blockquote>
@@ -197,12 +653,12 @@
 <p>value&#x3D;”属性简要说明”	<br>name&#x3D;”重写属性名称”<br>required&#x3D;”true” 是否为必传参数</p>
 </blockquote>
 <p>示例代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ApiModel(value = &quot;com.biancheng.auth.param.AddUserParam&quot;, description = &quot;新增用户参数&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AddUserParam</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty(value = &quot;ID&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty(value = &quot;名称&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty(value = &quot;年龄&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ApiModel(value = &quot;com.biancheng.auth.param.AddUserParam&quot;, description = &quot;新增用户参数&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AddUserParam</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty(value = &quot;ID&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty(value = &quot;名称&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty(value = &quot;年龄&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <hr>
 <h2 id="Swagger-在线测试接口"><a href="#Swagger-在线测试接口" class="headerlink" title="Swagger 在线测试接口"></a>Swagger 在线测试接口</h2><p>接口查看地址可以通过 服务地址&#x2F;swagger-ui.html 来访问</p>
 <p>示例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://localhost:9999/swagger-ui.html#/</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://localhost:9999/swagger-ui.html#/</span><br></pre></td></tr></table></figure></div>
 
 <hr>
 <h2 id="swagger-ui-html页面导出"><a href="#swagger-ui-html页面导出" class="headerlink" title="swagger-ui.html页面导出"></a>swagger-ui.html页面导出</h2><blockquote>
@@ -219,16 +675,425 @@
 <p>以本机为例：C:\Users\Matt.m2</p>
 </blockquote>
 <p>文件内容（配置阿里云镜像）</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/jcenter<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/jcenter<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
 
-<h4 id="添加至pom-xml"><a href="#添加至pom-xml" class="headerlink" title="添加至pom.xml"></a>添加至pom.xml</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.swagger2markup<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>swagger2markup-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--此处端口一定要是当前项目启动所用的端口--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">swaggerInput</span>&gt;</span>http://localhost:9999/v2/api-docs<span class="tag">&lt;/<span class="name">swaggerInput</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">outputDir</span>&gt;</span>src/docs/asciidoc/generated<span class="tag">&lt;/<span class="name">outputDir</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">config</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 除了ASCIIDOC之外，还有MARKDOWN和CONFLUENCE_MARKUP可选 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">swagger2markup.markupLanguage</span>&gt;</span>ASCIIDOC<span class="tag">&lt;/<span class="name">swagger2markup.markupLanguage</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="添加至pom-xml"><a href="#添加至pom-xml" class="headerlink" title="添加至pom.xml"></a>添加至pom.xml</h4><div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.swagger2markup<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>swagger2markup-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--此处端口一定要是当前项目启动所用的端口--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">swaggerInput</span>&gt;</span>http://localhost:9999/v2/api-docs<span class="tag">&lt;/<span class="name">swaggerInput</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">outputDir</span>&gt;</span>src/docs/asciidoc/generated<span class="tag">&lt;/<span class="name">outputDir</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">config</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 除了ASCIIDOC之外，还有MARKDOWN和CONFLUENCE_MARKUP可选 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">swagger2markup.markupLanguage</span>&gt;</span>ASCIIDOC<span class="tag">&lt;/<span class="name">swagger2markup.markupLanguage</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
 
-<h4 id="转换导出文件类型-包含-html-pdf"><a href="#转换导出文件类型-包含-html-pdf" class="headerlink" title="转换导出文件类型 包含 html pdf"></a>转换导出文件类型 包含 html pdf</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.asciidoctor<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>asciidoctor-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Include Asciidoctor PDF for pdf generation --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.asciidoctor<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>asciidoctorj-pdf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.0-alpha.10.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jruby<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jruby-complete<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.21<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Configure generic document generation settings --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sourceDirectory</span>&gt;</span>src/docs/asciidoc/generated<span class="tag">&lt;/<span class="name">sourceDirectory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sourceHighlighter</span>&gt;</span>coderay<span class="tag">&lt;/<span class="name">sourceHighlighter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">attributes</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">toc</span>&gt;</span>left<span class="tag">&lt;/<span class="name">toc</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">attributes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Since each execution can only handle one backend, run</span></span><br><span class="line"><span class="comment">         separate executions for each desired output type --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>output-html<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>generate-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>process-asciidoc<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">backend</span>&gt;</span>html5<span class="tag">&lt;/<span class="name">backend</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>src/docs/asciidoc/html<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>output-pdf<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>generate-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>process-asciidoc<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">backend</span>&gt;</span>pdf<span class="tag">&lt;/<span class="name">backend</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>src/docs/asciidoc/pdf<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="转换导出文件类型-包含-html-pdf"><a href="#转换导出文件类型-包含-html-pdf" class="headerlink" title="转换导出文件类型 包含 html pdf"></a>转换导出文件类型 包含 html pdf</h4><div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.asciidoctor<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>asciidoctor-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Include Asciidoctor PDF for pdf generation --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.asciidoctor<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>asciidoctorj-pdf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.0-alpha.10.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jruby<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jruby-complete<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.21<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Configure generic document generation settings --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sourceDirectory</span>&gt;</span>src/docs/asciidoc/generated<span class="tag">&lt;/<span class="name">sourceDirectory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sourceHighlighter</span>&gt;</span>coderay<span class="tag">&lt;/<span class="name">sourceHighlighter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">attributes</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">toc</span>&gt;</span>left<span class="tag">&lt;/<span class="name">toc</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">attributes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Since each execution can only handle one backend, run</span></span><br><span class="line"><span class="comment">         separate executions for each desired output type --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>output-html<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>generate-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>process-asciidoc<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">backend</span>&gt;</span>html5<span class="tag">&lt;/<span class="name">backend</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>src/docs/asciidoc/html<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>output-pdf<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>generate-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>process-asciidoc<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">backend</span>&gt;</span>pdf<span class="tag">&lt;/<span class="name">backend</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>src/docs/asciidoc/pdf<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
 
 <h4 id="配置完成过后-执行maven命令"><a href="#配置完成过后-执行maven命令" class="headerlink" title="配置完成过后 执行maven命令"></a>配置完成过后 执行maven命令</h4><blockquote>
 <p>需要配置本机maven环境</p>
 <p>以idea为例，Terminal窗口</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mvn swagger2markup:convertSwagger2markup</span><br><span class="line"></span><br><span class="line">mvn generate-resources</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">mvn swagger2markup:convertSwagger2markup</span><br><span class="line"></span><br><span class="line">mvn generate-resources</span><br></pre></td></tr></table></figure></div>
 
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://matt23-star.github.io">Hao Feng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://matt23-star.github.io/2021/07/Swagger/">https://matt23-star.github.io/2021/07/Swagger/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Spring-Boot/">Spring Boot</a><a class="post-meta__tags" href="/tags/Swagger/">Swagger</a></div><div class="post_share"><div class="social-share" data-image="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/07/RESTful/" title="REST API"><img class="cover" src="https://images.ctfassets.net/vwq10xzbe6iz/5sBH4Agl614xM7exeLsTo7/9e84dce01735f155911e611c42c9793f/rest-api.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">REST API</div></div></a></div><div class="next-post pull-right"><a href="/2021/07/Springboot-Mail-function/" title="Mail Transfer in Spring Boot Project"><img class="cover" src="https://miro.medium.com/v2/resize:fit:900/0*t61rpXrvkpesX_8U.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">Mail Transfer in Spring Boot Project</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/07/ModelMapper/" title="ModelMapper"><img class="cover" src="https://avatars.githubusercontent.com/u/946184?s=200&v=4" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-10</div><div class="title">ModelMapper</div></div></a></div><div><a href="/2021/07/RESTful/" title="REST API"><img class="cover" src="https://images.ctfassets.net/vwq10xzbe6iz/5sBH4Agl614xM7exeLsTo7/9e84dce01735f155911e611c42c9793f/rest-api.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-17</div><div class="title">REST API</div></div></a></div><div><a href="/2021/07/Springboot-Controller/" title="Controller layer in Spring Boot"><img class="cover" src="https://miro.medium.com/v2/resize:fit:900/0*t61rpXrvkpesX_8U.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-17</div><div class="title">Controller layer in Spring Boot</div></div></a></div><div><a href="/2021/07/Springboot-Mail-function/" title="Mail Transfer in Spring Boot Project"><img class="cover" src="https://miro.medium.com/v2/resize:fit:900/0*t61rpXrvkpesX_8U.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-17</div><div class="title">Mail Transfer in Spring Boot Project</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Hao Feng</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Matt23-star"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Matt23-star" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:matthaofeng@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/hao-feng-welcome/" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #0a66c2;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">When you are studying any matter or considering any philosophy, ask yourself only what are the facts and what is the truth that the facts bear out.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Swagger"><span class="toc-number">1.</span> <span class="toc-text">Swagger</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Swagger%E6%B3%A8%E8%A7%A3%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.</span> <span class="toc-text">Swagger注解内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Controller%E5%B1%82%E4%B8%AD"><span class="toc-number">1.1.1.</span> <span class="toc-text">Controller层中</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E4%B8%8E%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">类与方法定义说明</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Api-%E6%A0%87%E8%AE%B0%E4%B8%80%E4%B8%AAController%E7%B1%BB%E4%BD%9C%E4%B8%BASwagger%E6%96%87%E6%A1%A3%E8%B5%84%E6%BA%90"><span class="toc-number">1.1.1.1.1.</span> <span class="toc-text">@Api 标记一个Controller类作为Swagger文档资源</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ApiOperation-%E7%94%A8%E4%BA%8E%E6%96%B9%E6%B3%95%E4%B8%8A%EF%BC%8C%E8%AF%B4%E6%98%8E%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%8C%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.1.1.2.</span> <span class="toc-text">@ApiOperation 用于方法上，说明方法的作用，每一个接口的定义</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">方法参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ApiParam-%E7%94%A8%E4%BA%8E%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.1.2.1.</span> <span class="toc-text">@ApiParam 用于方法的参数说明</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ApiImplicitParam-%E7%94%A8%E4%BA%8E%E6%96%B9%E6%B3%95%E4%B8%8A%EF%BC%8C%E4%B8%BA%E5%8D%95%E7%8B%AC%E7%9A%84%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.1.2.2.</span> <span class="toc-text">@ApiImplicitParam  用于方法上，为单独的请求参数进行说明</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ApiImplicitParams-%E6%98%AF%E7%BB%84%E8%A3%85%E4%BA%86%E5%A4%9A%E4%B8%AA-ApiImplicitParam"><span class="toc-number">1.1.1.2.3.</span> <span class="toc-text">@ApiImplicitParams 是组装了多个@ApiImplicitParam</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%93%8D%E5%BA%94%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">方法响应说明</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ApiResponse-%E7%94%A8%E4%BA%8E%E6%96%B9%E6%B3%95%E4%B8%8A%EF%BC%8C%E6%A0%B9%E6%8D%AE%E5%93%8D%E5%BA%94%E7%A0%81%E8%A1%A8%E7%A4%BA%E4%B8%8D%E5%90%8C%E5%93%8D%E5%BA%94"><span class="toc-number">1.1.1.3.1.</span> <span class="toc-text">@ApiResponse 用于方法上，根据响应码表示不同响应</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ApiResponses-%E7%BB%84%E8%A3%85%E5%A4%9A%E4%B8%AA-ApiResponse"><span class="toc-number">1.1.1.3.2.</span> <span class="toc-text">@ApiResponses 组装多个@ApiResponse</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#model%E5%AE%9E%E4%BD%93%E5%B1%82%E4%B8%AD"><span class="toc-number">1.1.2.</span> <span class="toc-text">model实体层中</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ApiModel-%E7%94%A8%E4%BA%8E%E5%93%8D%E5%BA%94%E5%AE%9E%E4%BD%93%E7%B1%BB%EF%BC%8C%E7%94%A8%E4%BA%8E%E8%AF%B4%E6%98%8E%E5%AE%9E%E4%BD%93%E4%BD%9C%E7%94%A8"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">@ApiModel 用于响应实体类，用于说明实体作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ApiModelProperty-%E7%94%A8%E4%BA%8E%E5%B1%9E%E6%80%A7%E4%B8%8A%EF%BC%8C%E6%8F%8F%E8%BF%B0%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%B1%9E%E6%80%A7"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">@ApiModelProperty 用于属性上，描述实体类属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swagger-%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.2.</span> <span class="toc-text">Swagger 在线测试接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#swagger-ui-html%E9%A1%B5%E9%9D%A2%E5%AF%BC%E5%87%BA"><span class="toc-number">1.3.</span> <span class="toc-text">swagger-ui.html页面导出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">可能需要的步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEsetting-xml%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">配置setting.xml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%87%B3pom-xml"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">添加至pom.xml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B-%E5%8C%85%E5%90%AB-html-pdf"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">转换导出文件类型 包含 html pdf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%8C%E6%88%90%E8%BF%87%E5%90%8E-%E6%89%A7%E8%A1%8Cmaven%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">配置完成过后 执行maven命令</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/How-To-Grab-a-Wechat-Minigame/" title="How-To-Grab-a-Wechat-Minigame?">How-To-Grab-a-Wechat-Minigame?</a><time datetime="2024-10-10T13:51:01.000Z" title="Created 2024-10-10 21:51:01">2024-10-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/How-to-use-USC-CARC/" title="How to use USC CARC"><img src="https://raw.githubusercontent.com/Matt23-star/images/main/202403270028613.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="How to use USC CARC"/></a><div class="content"><a class="title" href="/2024/03/How-to-use-USC-CARC/" title="How to use USC CARC">How to use USC CARC</a><time datetime="2024-03-27T07:23:43.000Z" title="Created 2024-03-27 15:23:43">2024-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/front-end/" title="HTML 4"><img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HTML 4"/></a><div class="content"><a class="title" href="/2024/03/front-end/" title="HTML 4">HTML 4</a><time datetime="2024-03-02T06:43:00.000Z" title="Created 2024-03-02 14:43:00">2024-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/Springboot-Controller/" title="Controller layer in Spring Boot"><img src="https://miro.medium.com/v2/resize:fit:900/0*t61rpXrvkpesX_8U.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Controller layer in Spring Boot"/></a><div class="content"><a class="title" href="/2021/07/Springboot-Controller/" title="Controller layer in Spring Boot">Controller layer in Spring Boot</a><time datetime="2021-07-17T09:25:00.000Z" title="Created 2021-07-17 17:25:00">2021-07-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/RESTful/" title="REST API"><img src="https://images.ctfassets.net/vwq10xzbe6iz/5sBH4Agl614xM7exeLsTo7/9e84dce01735f155911e611c42c9793f/rest-api.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="REST API"/></a><div class="content"><a class="title" href="/2021/07/RESTful/" title="REST API">REST API</a><time datetime="2021-07-17T08:47:00.000Z" title="Created 2021-07-17 16:47:00">2021-07-17</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/index.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2024 By Hao Feng</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Swagger</li>
+        <li><strong>Author:</strong> Hao Feng</li>
+        <li><strong>Created at
+                :</strong> 2021-07-17 01:47:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-03-03 07:06:01
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://matt23-star.github.io/2021/07/Swagger/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Spring-Boot/">#Spring Boot</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Swagger/">#Swagger</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2021/07/RESTful/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">REST API</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2021/07/Springboot-Mail-function/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Mail Transfer in Spring Boot Project</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Swagger</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Swagger"><span class="nav-text">Swagger</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Swagger%E6%B3%A8%E8%A7%A3%E5%86%85%E5%AE%B9"><span class="nav-text">Swagger注解内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Controller%E5%B1%82%E4%B8%AD"><span class="nav-text">Controller层中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#model%E5%AE%9E%E4%BD%93%E5%B1%82%E4%B8%AD"><span class="nav-text">model实体层中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swagger-%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="nav-text">Swagger 在线测试接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#swagger-ui-html%E9%A1%B5%E9%9D%A2%E5%AF%BC%E5%87%BA"><span class="nav-text">swagger-ui.html页面导出</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Hao Feng</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        9 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
