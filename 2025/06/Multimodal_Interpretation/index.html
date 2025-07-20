@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Hao Feng">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://matt23-star.github.io/2025/06/multimodal_interpretation/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multimodal Interpretation">
+<meta property="og:url" content="https://matt23-star.github.io/2025/06/Multimodal_Interpretation/index.html">
+<meta property="og:site_name" content="Hello World!">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://matt23-star.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-06-15T12:02:43.000Z">
+<meta property="article:modified_time" content="2025-07-20T12:09:13.610Z">
+<meta property="article:author" content="Hao Feng">
+<meta property="article:tag" content="Multimodal">
+<meta property="article:tag" content="Interpretation">
+<meta property="article:tag" content="SHAP">
+<meta property="article:tag" content="Shapley Value">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://matt23-star.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/HF.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/HF.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/HF.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Multimodal Interpretation | Matt&#39;s Journey Notes
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"matt23-star.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Matt's Journey Notes","subtitle":{"text":["How to Train Your Dragon?"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Status":{"icon":"fa-regular fa-chart-bar"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/Matt23-star","Blog":"https://matt23-star.github.io/","Friends":"/friends"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Matt&#39;s Journey Notes
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-chart-bar fa-fw"></i>
+                                    STATUS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/Matt23-star">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://matt23-star.github.io/">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/friends">
+                                                    FRIENDS
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                STATUS
+                            </span>
+                            
+                                <i class="fa-regular fa-chart-bar fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/Matt23-star">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://matt23-star.github.io/">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/friends">FRIENDS</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Multimodal Interpretation</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Hao Feng</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-06-15 20:02:43</span>
+        <span class="mobile">2025-06-15 20:02:43</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-07-20 20:09:13</span>
+            <span class="mobile">2025-07-20 20:09:13</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Reasearch/">Reasearch</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Reasearch/Notebook/">Notebook</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Multimodal/">Multimodal</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Interpretation/">Interpretation</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/SHAP/">SHAP</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Shapley-Value/">Shapley Value</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<blockquote>
+<p>As machine learning models penetrate critical areas like medicine, the criminal justice system, and financial markets, the inability of humans to understand these models seems problematic. [1]</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://christophm.github.io/interpretable-ml-book/" >Interpretable Machine Learning<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://open.atatech.org/articles/11000229823?spm=ata.28742492.0.0.8f60343b8s4EBV" >Open ATA里的可解释性总结<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+<ul>
+<li>Interpretability must be <u>qualified</u>. To be meaningful, any assertion regarding interpretability should fix a specific definition.</li>
+<li>Transparency may be at <u>odds</u> with the broader objectives of AI.</li>
+<li>全局模型无关解释方法（Global Model-Agnostic）&amp; 局部模型无关解释方法（Local Model-Agnostic）</li>
+</ul>
+<h1 id="Shapley-Value"><a href="#Shapley-Value" class="headerlink" title="Shapley Value"></a>Shapley Value</h1><p><font style="color:rgb(32, 33, 34);">在合作博弈论中，是一种在合作的一组玩家之间公平分配</font><strong><u><font style="color:rgb(32, 33, 34);">总收益或成本</font></u></strong><font style="color:rgb(32, 33, 34);">的方法。例如，在每个成员贡献不同的团队项目中，</font><strong><font style="color:rgb(32, 33, 34);">Shapley Value</font></strong><font style="color:rgb(32, 33, 34);">提供了一种方法来确定</font><u><font style="color:rgb(32, 33, 34);">每个成员</font></u><font style="color:rgb(32, 33, 34);">应得到多少赞誉或责备。</font></p>
+<p><font style="color:rgb(32, 33, 34);">例子：假设一个简化的企业生产环境，所有者</font>$ o $<font style="color:rgb(32, 33, 34);">提供了关键的资本，因为没有他&#x2F;她，就无法获得任何收益。有</font>$ m $<font style="color:rgb(32, 33, 34);">个工人 </font>$ w_1,…,w_m $<font style="color:rgb(32, 33, 34);">，每个工人都为总利润贡献了金额</font>$ p $<font style="color:rgb(32, 33, 34);">。</font></p>
+<p>我们则有公司员工集合$ N&#x3D;{o,w_1,…,w_m} $</p>
+<p>假设价值函数$ v(S) $<font style="color:rgb(32, 33, 34);">:</font></p>
+<p>$ v(S) &#x3D;<br>\begin{cases}<br>(|S|-1)*p, &amp; \text{if } o \in S,\<br>0,            &amp; \text{otherwise}.<br>\end{cases}<br> $</p>
+<p>我们可以根据Shapley Value计算公式得到不同人的贡献：</p>
+<p>$  \quad \quad\varphi_o &#x3D; \frac{mp}{2} \quad \text{(for the owner)} $</p>
+<p>$   \quad \quad\varphi_{w_i}&#x3D; \frac{p}{2} \quad \text{(for each worker)} $</p>
+<h2 id="Shapley-Value计算公式"><a href="#Shapley-Value计算公式" class="headerlink" title="Shapley Value计算公式"></a><font style="color:rgb(32, 33, 34);">Shapley Value计算公式</font></h2><blockquote>
+<p>Game Theory for Economic Analysis. [1]</p>
+<ol>
+<li>子集组合排序</li>
+<li>R的全排序</li>
+</ol>
+</blockquote>
+<p>$ i $在第$ |s|+1 $位上。</p>
+<p>$ \begin{align*}<br>\varphi_i(v) &amp;&#x3D; \sum_{S \subseteq N \setminus {i}} \frac{|S|! (n - |S| - 1)!}{n!} \big(v(S \cup {i}) - v(S)\big) \<br>&amp;&#x3D; \frac{1}{n} \sum_{S \subseteq N \setminus {i}} \binom{n - 1}{|S|}^{-1} \big(v(S \cup {i}) - v(S)\big) \<br>&amp;&#x3D;  \frac{1}{|N|!} \sum_{R} \big(v(P_{i}^{R} \cup {i}) - v(P_{i}^{R})\big)<br>\end{align*} $</p>
+<h3 id="（示例）计算所有者贡献"><a href="#（示例）计算所有者贡献" class="headerlink" title="（示例）计算所有者贡献"></a>（示例）计算所有者贡献</h3><p>$ \begin{align*}<br>\varphi_o &amp;&#x3D; \sum_{S \subseteq N \setminus {o}} \frac{|S|! (n - |S| - 1)!}{n!} (v(S \cup {o}) - v(S)) \<br>&amp;&#x3D; \sum_{S \subseteq N \setminus {o}} \frac{|S|! (n - |S| - 1)!}{n!} (|S| \cdot p)<br>\end{align*} $</p>
+<p>令$ |S| &#x3D; k, $则有</p>
+<p>$ \begin{align*}<br>\phi_o &amp;&#x3D; p \sum_{k&#x3D;0}^m \binom{m}{k} \frac{k! (m-k)!}{(m+1)!} k \<br>&amp;&#x3D; p \frac{m!}{(m+1)!} \sum_{k&#x3D;0}^m k \<br>&amp;&#x3D; p \frac{1}{m+1} \cdot \frac{m(m+1)}{2} \<br>&amp;&#x3D; \frac{mp}{2}<br>\end{align*} $</p>
+<h1 id="SHAP-一种局部模型无关的可解释性方法"><a href="#SHAP-一种局部模型无关的可解释性方法" class="headerlink" title="SHAP-一种局部模型无关的可解释性方法"></a>SHAP-一种局部模型无关的可解释性方法</h1><blockquote>
+<p>A Unified Approach to Interpreting Model Predictions [2]</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://shap.readthedocs.io/en/latest/" >https://shap.readthedocs.io/en/latest/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>这里只提及了<font style="color:rgb(19, 19, 20);">加权线性回归来近似计算（Kernel SHAP），还有深度学习网络 （Deep SHAP）</font></p>
+</blockquote>
+<p>一种用于解释任何机器学习模型输出的博弈论方法。它利用博弈论中的经典 Shapley 值及其相关扩展，将最优信用分配(<font style="color:rgb(64, 64, 64);background-color:rgb(252, 252, 252);">optimal credit allocation</font>)与局部解释联系起来，即归因值。</p>
+<p>归因值之和+基准值应该为预测值$ v(N) $</p>
+<p>$ \sum_{i&#x3D;1}^d \phi_i(x) ;+; v(\varnothing) ;&#x3D;; f(x)<br> $</p>
+<h2 id="加性特征归因-三个特性"><a href="#加性特征归因-三个特性" class="headerlink" title="**加性特征归因**三个特性"></a>**<font style="color:rgb(19, 19, 20);">加性特征归因</font>**三个特性</h2><blockquote>
+<p>多个特征（或变量）的总贡献被认为是它们单独贡献的总和。</p>
+</blockquote>
+<ul>
+<li>局部准确性 (Local Accuracy)<ul>
+<li><font style="color:rgb(19, 19, 20);">解释模型在简化输入 x′ 对应原始输入 x 时，至少匹配原始模型 f 的输出</font></li>
+<li><font style="color:rgb(19, 19, 20);">所有特征的归因之和，精确等于模型输出与基线（背景分布均值）的差值。</font></li>
+</ul>
+</li>
+<li>可缺失性 (Missingness)<ul>
+<li>对于任何在所有上下文下都不改变模型输出的特征$ j $，必须$ \phi_j(x)&#x3D;0 $</li>
+<li>即，如果模型并未“用到”这个特征，它就不应分到任何贡献。</li>
+</ul>
+</li>
+<li>一致性 (Consistency)<ul>
+<li>若在另一个模型$ v’ $中，对每一种上下文 $ S\subseteq{1,\dots,d}\setminus{i} $，若有$ v′(S∪{i})−v′(S)≥v(S∪{i})−v(S) $，则应有$ \phi_i^{,f’}(x);\ge;\phi_i^{,f}(x). $</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>大部分方法，例如<strong>LIME、DeepLIFT只满足其中一两个特性，而传统Shaley Value估计方法能同时满足这三个特性。</strong></p>
+</blockquote>
+<ol>
+<li><strong>归因值 φᵢ</strong>：确实是把特征 i 在所有可能的子集 S 中“加入”时对模型预测的边际提升累计起来。</li>
+<li><strong>模型预测</strong>：SHAP 中用的 v(S) 就是“在保留特征子集 S 值不变、其他特征随机化”下的条件期望。根据一个基准值$ \mathbb{E}[f(z)] $来计算。</li>
+</ol>
+<p>$ v(S)&#x3D;\mathbb{E}\bigl[f(z)\mid z_S\bigr] $</p>
+<ol start="3">
+<li><strong>加权平均</strong>：<ul>
+<li>每个边际贡献项</li>
+</ul>
+</li>
+</ol>
+<p>$ v(S\cup{i})-v(S) $</p>
+<pre><code>- 权重
+</code></pre>
+<p>$ \frac{|S|!,(d-|S|-1)!}{d!} $</p>
+<blockquote>
+<p>在实际计算时，为了估计那个条件期望，往往会用背景样本做 Monte Carlo 近似，或者针对决策树用专门的 Tree SHAP 算法做精确计算。</p>
+</blockquote>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Matt23-star/images/main/202507202008839.png"
+                     
+                ></p>
+<h3 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">import json</span><br><span class="line"></span><br><span class="line">import numpy as np</span><br><span class="line">import torch</span><br><span class="line">import torchvision</span><br><span class="line"></span><br><span class="line">import shap</span><br><span class="line"></span><br><span class="line">device = torch.device(&quot;cuda:0&quot; if torch.cuda.is_available() else &quot;cpu&quot;)</span><br><span class="line"></span><br><span class="line">model = torchvision.models.mobilenet_v2(pretrained=True, progress=False)</span><br><span class="line">model.to(device)</span><br><span class="line">model.eval()</span><br><span class="line">X, y = shap.datasets.imagenet50()</span><br><span class="line"></span><br><span class="line"># Getting ImageNet 1000 class names</span><br><span class="line">url = &quot;https://s3.amazonaws.com/deep-learning-models/image-models/imagenet_class_index.json&quot;</span><br><span class="line">with open(shap.datasets.cache(url)) as file:</span><br><span class="line">    class_names = [v[1] for v in json.load(file).values()]</span><br><span class="line">print(&quot;Number of ImageNet classes:&quot;, len(class_names))</span><br><span class="line"># print(&quot;Class names:&quot;, class_names)</span><br><span class="line"></span><br><span class="line"># Prepare data transformation pipeline</span><br><span class="line"></span><br><span class="line">mean = [0.485, 0.456, 0.406]</span><br><span class="line">std = [0.229, 0.224, 0.225]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def nhwc_to_nchw(x: torch.Tensor) -&gt; torch.Tensor:</span><br><span class="line">    if x.dim() == 4:</span><br><span class="line">        x = x if x.shape[1] == 3 else x.permute(0, 3, 1, 2)</span><br><span class="line">    elif x.dim() == 3:</span><br><span class="line">        x = x if x.shape[0] == 3 else x.permute(2, 0, 1)</span><br><span class="line">    return x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def nchw_to_nhwc(x: torch.Tensor) -&gt; torch.Tensor:</span><br><span class="line">    if x.dim() == 4:</span><br><span class="line">        x = x if x.shape[3] == 3 else x.permute(0, 2, 3, 1)</span><br><span class="line">    elif x.dim() == 3:</span><br><span class="line">        x = x if x.shape[2] == 3 else x.permute(1, 2, 0)</span><br><span class="line">    return x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">transform = [</span><br><span class="line">    torchvision.transforms.Lambda(nhwc_to_nchw),</span><br><span class="line">    torchvision.transforms.Lambda(lambda x: x * (1 / 255)),</span><br><span class="line">    torchvision.transforms.Normalize(mean=mean, std=std),</span><br><span class="line">    torchvision.transforms.Lambda(nchw_to_nhwc),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">inv_transform = [</span><br><span class="line">    torchvision.transforms.Lambda(nhwc_to_nchw),</span><br><span class="line">    torchvision.transforms.Normalize(</span><br><span class="line">        mean=(-1 * np.array(mean) / np.array(std)).tolist(),</span><br><span class="line">        std=(1 / np.array(std)).tolist(),</span><br><span class="line">    ),</span><br><span class="line">    torchvision.transforms.Lambda(nchw_to_nhwc),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">transform = torchvision.transforms.Compose(transform)</span><br><span class="line">inv_transform = torchvision.transforms.Compose(inv_transform)</span><br><span class="line"></span><br><span class="line">def predict(img: np.ndarray) -&gt; torch.Tensor:</span><br><span class="line">    img = nhwc_to_nchw(torch.Tensor(img))</span><br><span class="line">    img = img.to(device)</span><br><span class="line">    output = model(img)</span><br><span class="line">    return output</span><br><span class="line"></span><br><span class="line"># Check that transformations work correctly</span><br><span class="line">Xtr = transform(torch.Tensor(X))</span><br><span class="line">out = predict(Xtr[1:3])</span><br><span class="line">classes = torch.argmax(out, axis=1).cpu().numpy()</span><br><span class="line">print(f&quot;Classes: &#123;classes&#125;: &#123;np.array(class_names)[classes]&#125;&quot;)</span><br><span class="line"></span><br><span class="line">topk = 4</span><br><span class="line">batch_size = 50</span><br><span class="line">n_evals = 10000</span><br><span class="line"></span><br><span class="line"># define a masker that is used to mask out partitions of the input image.</span><br><span class="line">masker_blur = shap.maskers.Image(&quot;blur(128,128)&quot;, Xtr[0].shape)</span><br><span class="line"></span><br><span class="line"># create an explainer with model and image masker</span><br><span class="line">explainer = shap.Explainer(predict, masker_blur, output_names=class_names)</span><br><span class="line"></span><br><span class="line"># feed only one image</span><br><span class="line"># here we explain two images using 100 evaluations of the underlying model to estimate the SHAP values</span><br><span class="line">shap_values = explainer(</span><br><span class="line">    Xtr[1:2],</span><br><span class="line">    max_evals=n_evals,</span><br><span class="line">    batch_size=batch_size,</span><br><span class="line">    outputs=shap.Explanation.argsort.flip[:topk],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">(shap_values.data.shape, shap_values.values.shape)</span><br><span class="line"></span><br><span class="line">shap_values.data = inv_transform(shap_values.data).cpu().numpy()[0]</span><br><span class="line">shap_values.values = [val for val in np.moveaxis(shap_values.values[0], -1, 0)]</span><br><span class="line"></span><br><span class="line">shap.image_plot(</span><br><span class="line">    shap_values=shap_values.values,</span><br><span class="line">    pixel_values=shap_values.data,</span><br><span class="line">    labels=shap_values.output_names,</span><br><span class="line">    true_labels=[class_names[132]],</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Matt23-star/images/main/202507202008229.png"
+                     
+                ></p>
+<h1 id="SHAP-for-MultiModal"><a href="#SHAP-for-MultiModal" class="headerlink" title="SHAP for MultiModal"></a>SHAP for MultiModal</h1><h2 id="刚刚的单模态SHAP里面有另外两个比较重要的特性"><a href="#刚刚的单模态SHAP里面有另外两个比较重要的特性" class="headerlink" title="刚刚的单模态SHAP里面有另外两个比较重要的特性"></a>刚刚的单模态SHAP里面有另外两个比较重要的特性</h2><ul>
+<li>权重值和应为1</li>
+</ul>
+<p>$     \sum_{S\subseteq S_{all} &#x2F; i} \frac{|S|! (N-|S|-1)!}{N!} &#x3D; \sum_{s&#x3D;0}^{N-1} C_{N-1}^{s} \frac{|S|! (N-|S|-1)!}{N!}<br>    &#x3D; \sum_{s&#x3D;0}^{N-1} \frac{|N-1|!}{S!(N-|S|-1)!} \frac{|S|! (N-|S|-1)!}{N!} &#x3D; 1 $</p>
+<ul>
+<li>归因值之和+基准值应该为预测值$ v(N) $</li>
+</ul>
+<p>$ \sum_{i&#x3D;1}^d \phi_i(x) ;+; v(\varnothing) ;&#x3D;; f(x)<br> $</p>
+<h2 id="多模态与单模态的区别"><a href="#多模态与单模态的区别" class="headerlink" title="多模态与单模态的区别"></a>多模态与单模态的区别</h2><p>单模态只处理单一类型的数据，如</p>
+<ul>
+<li>文本（Text）</li>
+<li>图像（Image）</li>
+<li>语音（Audio）</li>
+<li>结构化特征（Tabular）</li>
+</ul>
+<p>而多模态同时处理**<u>多种类型</u>**的数据，比如：</p>
+<ul>
+<li>图像 + 文本（如：图文检索、图像字幕生成）</li>
+<li>语音 + 视频（如：视频理解、虚拟主播）</li>
+<li>传感器信号 + 时间序列（如：多传感器融合的智能驾驶）</li>
+</ul>
+<h3 id="多模态模型架构与融合策略"><a href="#多模态模型架构与融合策略" class="headerlink" title="多模态模型架构与融合策略"></a>多模态模型架构与融合策略</h3><ul>
+<li><strong>早期融合（Early Fusion）</strong><ul>
+<li>在最底层就把不同模态特征拼接／加权，送入统一网络</li>
+<li>“轻量级” CNN</li>
+<li>特征维度极易爆炸，尤其当各模态维度都较高时会导致计算和存储压力很大；拼接后，网络往往无法区分哪些模式是“重要的”，容易引入大量冗余信息；</li>
+</ul>
+</li>
+<li><strong>中期融合（Mid Fusion）</strong><ul>
+<li>各模态先独立编码，再在中间层交互（如多头注意力跨模态）</li>
+<li>例如LXMERT</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Matt23-star/images/main/202507202008736.png"
+                     
+                ></p>
+<ul>
+<li><strong>晚期融合（Late Fusion）</strong><ul>
+<li>各模态单独预测，最后以投票或加权平均融合结果</li>
+<li>例如 CLIP，图像和文本各自用独立编码器，映射到相同维度的嵌入空间，不在网络内部交互；最后通过<strong>相似度计算</strong>（如点积或余弦）来判断它们的关联性或并行输出多个任务的得分后再加权。</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Matt23-star/images/main/202507202008939.png"
+                     
+                ></p>
+<p>所以传统的SHAP没有办法解决</p>
+<h2 id="双模态下Shapley-Value的推理"><a href="#双模态下Shapley-Value的推理" class="headerlink" title="双模态下Shapley Value的推理"></a>双模态下Shapley Value的推理</h2><p>假定，图像特征为$ S_1 $而文本特征为$ S_2 $</p>
+<p>对于图像特征$ i $，它的Shapley Value为</p>
+<p>$     \phi_{i1} &#x3D;  \sum_{S_b\subseteq S_{2}} \sum_{S_a\subseteq S_{1} &#x2F; i} w_{S_aS_b} (v(S_b \cup S_a \cup i))- v(S_b \cup S_a)) $</p>
+<p>其中$ w_{S_aS_b}  $为权重。根据上面单模态SHAP的推论，不同模态下的权重之和应为1：</p>
+<p>$     \sum_{S_b\subseteq S_{2}} \sum_{S_a\subseteq S_{1} &#x2F; i} w_{S_aS_{b}} &#x3D; 1<br> $</p>
+<p>而图像模态的价值（预测值）应为：</p>
+<p>$ \sum_{i} \phi_{i1} &#x3D; V(S_1 \cup S_2) - V(S_2) $</p>
+<p>与此同时根据刚刚的权重计算方式（组合方式），而不是像单模态那样直接把特征值拉通：</p>
+<p>$ \begin{align*}<br> w_{S_aS_{b}} &amp;&#x3D; \frac{|S_a|!(S_1 - |S_a| - 1)! |S_b|! (S_2 - |S_b|)!}{S_1!(S_2 + 1)!}\<br>&amp;&#x3D;\frac{|S_b|! (|S_2|-|S_b|)!}{(|S_2| + 1)!}  \frac{|S_a|! (|S_1|-|S_a|-1)!}{|S_1|!}<br>\end{align*} \<br> $</p>
+<blockquote>
+<p>为什么$ N_2 $需要+1，因为对于文本模态来说，图像模态可以看作是它的一个特征输入。</p>
+</blockquote>
+<p>接着</p>
+<p>$ \begin{align*}<br>\phi_{i1} &amp;&#x3D;  \sum_{S_b\subseteq S_{2}} \sum_{S_a\subseteq S_{1} &#x2F; i} w_{S_aS_b} (v(S_b \cup S_a \cup i))- v(S_b \cup S_a))\<br>&amp;&#x3D; \sum_{S_b\subseteq S_{2}} \sum_{S_a\subseteq S_{1} &#x2F; i} \frac{|S_b|! (|S_2|-|S_b|)!}{(|S_2| + 1)!}  \frac{|S_a|! (|S_1|-|S_a|-1)!}{|S_1|!}(v(S_b \cup S_a \cup i))- v(S_b \cup S_a))\<br>\end{align*} \<br> $</p>
+<p>$ \begin{align*}<br>\sum_{i} \phi_{i1} &amp;&#x3D; \sum_{i} \sum_{S_b\subseteq S_{2}} \sum_{S_a\subseteq S_{1} &#x2F; i} \frac{|S_b|! (|S_2|-|S_b|)!}{(|S_2| + 1)!}  \frac{|S_a|! (|S_1|-|S_a|-1)!}{|S_1|!}<br> (v(S_b \cup S_a \cup i))- v(S_b \cup S_a))\<br>&amp;&#x3D; \sum_{S_b\subseteq S_{2}}\frac{(|S_b|!(S_2|-|S_b|)!)}{(|S_2|+1)!}  \sum_{j&#x3D;1}^{|S_2+1|} V(S_1, S_b)\<br>&amp;&#x3D; \sum_{S_b\subseteq S_{2}}\frac{(|S_b|!(S_2|-|S_b|)!)}{(|S_2|+1)!}  (|S_2+1|)(v(S_b \cup S_1))- v(S_b \cup S_1))\<br>&amp;&#x3D;\sum_{S_b\subseteq S_{2}}\frac{(|S_b|!(S_2|-|S_b|)!)}{|S_2|!} (v(S_b \cup S_1))- v(S_b \cup S_1))\<br>&amp; &#x3D; V(S_1 \cup S_2) - V(S_2)<br>\end{align*} $</p>
+<h1 id="如何使用SHAP来解释多模态"><a href="#如何使用SHAP来解释多模态" class="headerlink" title="如何使用SHAP来解释多模态"></a>如何使用SHAP来解释多模态</h1><h2 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h2><blockquote>
+<p><em>MM-SHAP: A performance-agnostic metric for measuring multimodal contributions in vision and language models &amp; tasks [4]</em></p>
+</blockquote>
+<ol>
+<li>对一条样本 (sentence,image_path)(\text{sentence},,\text{image_path})(sentence,image_path)：<ol>
+<li>用 tokenizer 将句子转成 <code>input_ids</code>（长度为 L）。</li>
+<li>用 FRCNN 抽取整张图像的 36 个 ROI 特征<code>features</code>（形状 [1,36,d][1,36,d][1,36,d]）和对应的<code>normalized_boxes</code>。</li>
+</ol>
+</li>
+<li>定义 <code>custom_masker(mask, x)</code><ol>
+<li><code>mask</code> 是长度为 L+36L 的布尔向量：前 L位用来控制文本 token，后 36 位用来控制图像 patch。</li>
+</ol>
+</li>
+<li>定义 <code>predict</code></li>
+<li>初始化 <code>SHAP Explainer</code></li>
+<li>对单条测试样本计算 <strong>SHAP</strong> 值</li>
+</ol>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ---------- 1. 准备：预处理函数和模型加载 ----------</span><br><span class="line"></span><br><span class="line">def preprocess(sentence, image_path):</span><br><span class="line">    # 文本编码</span><br><span class="line">    inputs = tokenizer(</span><br><span class="line">        sentence,</span><br><span class="line">        padding=&quot;max_length&quot;,</span><br><span class="line">        truncation=True,</span><br><span class="line">        max_length=MAX_LEN,</span><br><span class="line">        return_tensors=&quot;pt&quot;</span><br><span class="line">    )</span><br><span class="line">    # 图像特征提取</span><br><span class="line">    imgs, sizes, scales = image_preprocess(image_path)</span><br><span class="line">    output = frcnn(imgs.cuda(), sizes, scales, return_tensors=&quot;pt&quot;)</span><br><span class="line">    feats = output[&quot;roi_features&quot;]         # [1, PATCH_NUM, feat_dim]</span><br><span class="line">    boxes = output[&quot;normalized_boxes&quot;]      # [1, PATCH_NUM, 4]</span><br><span class="line">    return inputs, feats, boxes</span><br><span class="line"></span><br><span class="line"># ---------- 2. 定义 masker 与模型预测 ----------</span><br><span class="line"></span><br><span class="line">def custom_masker(mask, x):</span><br><span class="line">    ids, feats = x           # ids: [1, L], feats: [1, PATCH_NUM, D]</span><br><span class="line">    mask = torch.tensor(mask)  # 长度 = L + PATCH_NUM</span><br><span class="line"></span><br><span class="line">    # 文本部分：mask 为 False 的位置用 PAD_ID</span><br><span class="line">    masked_ids = ids.clone()</span><br><span class="line">    masked_ids[~mask[:ids.shape[1]]] = PAD_ID</span><br><span class="line"></span><br><span class="line">    # 图像部分：mask 为 False 的 patch 特征置 0</span><br><span class="line">    masked_feats = feats.clone()</span><br><span class="line">    patch_mask = mask[ids.shape[1]:].bool()  # [PATCH_NUM]</span><br><span class="line">    masked_feats[:, ~patch_mask, :] = 0.0</span><br><span class="line"></span><br><span class="line">    return masked_ids, masked_feats</span><br><span class="line"></span><br><span class="line">def predict(x):</span><br><span class="line">    ids, feats = x</span><br><span class="line">    out = model(</span><br><span class="line">        input_ids=ids.cuda(),</span><br><span class="line">        attention_mask=torch.ones_like(ids).cuda(),</span><br><span class="line">        visual_feats=feats.cuda(),</span><br><span class="line">        visual_pos=boxes.repeat(ids.shape[0], 1, 1).cuda(),</span><br><span class="line">        token_type_ids=torch.zeros_like(ids).cuda(),</span><br><span class="line">        return_dict=True</span><br><span class="line">    )</span><br><span class="line">    probs = torch.softmax(out[&quot;cross_relationship_score&quot;], dim=1)</span><br><span class="line">    return probs[:, 1].detach().cpu().numpy()  # 每个样本的得分</span><br><span class="line"></span><br><span class="line"># ---------- 3. 初始化 SHAP Explainer ----------</span><br><span class="line"></span><br><span class="line"># 选一些 (sentence, image_path) 作为背景集，得 background_ids, background_feats</span><br><span class="line">masker = shap.maskers.Partition(mask=custom_masker,</span><br><span class="line">                                sample_data=(background_ids, background_feats))</span><br><span class="line">explainer = shap.Explainer(predict, masker)</span><br><span class="line"></span><br><span class="line"># ---------- 4. 对单个样本快速计算 SHAP 值 ----------</span><br><span class="line"></span><br><span class="line"># 主循环中每次只需：</span><br><span class="line">inputs, feats, boxes = preprocess(test_sentence, test_image_path)</span><br><span class="line">x = (inputs.input_ids, feats)       # [1, L], [1, PATCH_NUM, D]</span><br><span class="line">shap_vals = explainer(x)            # shap_vals.values 形状为 [1, L+PATCH_NUM]</span><br><span class="line"></span><br><span class="line"># 解释结果：</span><br><span class="line"># 文本 token 的 attribution = shap_vals.values[0][:L]</span><br><span class="line"># 图像 patch 的 attribution = shap_vals.values[0][L:]</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h2><ol>
+<li>把“文本看作一个整体”，把它当作一个超级输入，对比各个图像 patch 的边际贡献。</li>
+<li>同理对图像再进行一次</li>
+<li>合并到每个子输入的最终归因</li>
+</ol>
+<h1 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h1><blockquote>
+<p><em>Attention, please! PixelSHAP reveals what vision-language models actually focus on.  —— Roni Goldshmidt, 2025</em></p>
+</blockquote>
+<ul>
+<li>通过 Mask R-CNN、SAM（Segment Anything Model）等分割算法生成候选对象或区域；</li>
+<li>依次遮蔽单个对象（以基线贴图或随机噪声替换该区域），观察 VLM 重新生成文本的输出差异；</li>
+<li>根据 Shapley 公式集成这些差异，得到每个“图像对象”对文本输出的贡献评分。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Matt23-star/images/main/202507202008416.png"
+                     
+                ></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[1]. Lipton, Z. C. (2016). <em><strong>The mythos of model interpretability.</strong></em> <em>arXiv preprint arXiv:1606.03490</em>. <a class="link"   target="_blank" rel="noopener" href="https://doi.org/10.48550/arXiv.1606.03490" >https://doi.org/10.48550/arXiv.1606.03490<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> </p>
+<p>[2]. For a proof of unique existence, see Ichiishi, Tatsuro (1983). <em><strong>Game Theory for Economic Analysis</strong></em>. New York: Academic Press. pp. 118–120. ISBN 0-12-370180-5.</p>
+<p>[3]. Lundberg, S. M., &amp; Lee, S.-I. (2017). <em><strong>A unified approach to interpreting model predictions</strong></em>. In I. Guyon <em>et al.</em> (Eds.), Advances in Neural Information Processing Systems, 30, 4765–4774. Curran Associates, Inc.</p>
+<p>[4]. Parcalabescu, L., &amp; Frank, A. (2023). <em><strong>MM-SHAP: A performance-agnostic metric for measuring multimodal contributions in vision and language models &amp; tasks</strong></em><strong>.</strong> In <em>Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (ACL ’23)</em> (pp. 4032–4059). Association for Computational Linguistics. </p>
+<p>[5]. Lipovetsky, S., &amp; Conklin, M. (2001). <em><strong>Analysis of regression in game theory approach.</strong></em> <em>Applied Stochastic Models in Business and Industry</em>, 17(4), 319–330.</p>
+<p>[6]. Goldshmidt, R. (2025). <em><strong>Attention, Please! PixelSHAP Reveals What Vision-Language Models Actually Focus On</strong></em>. <em>arXiv preprint arXiv:2503.06670</em>.</p>
+<p>[7]. Horovicz, M., &amp; Goldshmidt, R. (2024, July 14). <em><strong>TokenSHAP: Interpreting large language models with Monte Carlo Shapley value estimation</strong></em><strong>.</strong> arXiv preprint arXiv:2407.10114.</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Multimodal Interpretation</li>
+        <li><strong>Author:</strong> Hao Feng</li>
+        <li><strong>Created at
+                :</strong> 2025-06-15 20:02:43</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-07-20 20:09:13
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://matt23-star.github.io/2025/06/Multimodal_Interpretation/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Multimodal/">#Multimodal</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Interpretation/">#Interpretation</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/SHAP/">#SHAP</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Shapley-Value/">#Shapley Value</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/10/How-To-Grab-a-Wechat-Minigame/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">How-To-Grab-a-Wechat-Minigame?</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Multimodal Interpretation</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shapley-Value"><span class="nav-text">Shapley Value</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shapley-Value%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="nav-text">Shapley Value计算公式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E7%A4%BA%E4%BE%8B%EF%BC%89%E8%AE%A1%E7%AE%97%E6%89%80%E6%9C%89%E8%80%85%E8%B4%A1%E7%8C%AE"><span class="nav-text">（示例）计算所有者贡献</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SHAP-%E4%B8%80%E7%A7%8D%E5%B1%80%E9%83%A8%E6%A8%A1%E5%9E%8B%E6%97%A0%E5%85%B3%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E6%96%B9%E6%B3%95"><span class="nav-text">SHAP-一种局部模型无关的可解释性方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E6%80%A7%E7%89%B9%E5%BE%81%E5%BD%92%E5%9B%A0-%E4%B8%89%E4%B8%AA%E7%89%B9%E6%80%A7"><span class="nav-text">**加性特征归因**三个特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples"><span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Text"><span class="nav-text">Text</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Image"><span class="nav-text">Image</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SHAP-for-MultiModal"><span class="nav-text">SHAP for MultiModal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9A%E5%88%9A%E7%9A%84%E5%8D%95%E6%A8%A1%E6%80%81SHAP%E9%87%8C%E9%9D%A2%E6%9C%89%E5%8F%A6%E5%A4%96%E4%B8%A4%E4%B8%AA%E6%AF%94%E8%BE%83%E9%87%8D%E8%A6%81%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-text">刚刚的单模态SHAP里面有另外两个比较重要的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E4%B8%8E%E5%8D%95%E6%A8%A1%E6%80%81%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">多模态与单模态的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%9E%8D%E5%90%88%E7%AD%96%E7%95%A5"><span class="nav-text">多模态模型架构与融合策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E6%A8%A1%E6%80%81%E4%B8%8BShapley-Value%E7%9A%84%E6%8E%A8%E7%90%86"><span class="nav-text">双模态下Shapley Value的推理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8SHAP%E6%9D%A5%E8%A7%A3%E9%87%8A%E5%A4%9A%E6%A8%A1%E6%80%81"><span class="nav-text">如何使用SHAP来解释多模态</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80"><span class="nav-text">方案一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="nav-text">方案二</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8"><span class="nav-text">延伸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-text">References</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Hao Feng</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        10 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
