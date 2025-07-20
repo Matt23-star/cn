@@ -216,6 +216,28 @@
     
     
     
+    <!-- ✅ MathJax v3 + AMS 包 + 换行支持 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                packages: ['base', 'ams'],
+                tags: 'ams'
+            },
+            loader: {
+                load: ['[tex]/ams']
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                renderActions: {
+                    addMenu: []
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -782,9 +804,9 @@ public ResponseEntity&lt;Long&gt; deletePost(@PathVariable Long id) &#123;
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2021/07/RESTful/">
+				<a class="next" rel="next" href="/2021/07/Swagger/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">REST API</span>
+						<span class="post-nav-title-item truncate max-w-48">Swagger</span>
 						<span class="post-nav-item">Next posts</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
