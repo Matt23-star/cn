@@ -235,13 +235,64 @@
   color: #34495e;
   margin-bottom: 20px;
 }
-.projects-page-container .projects-grid .project-card .project-content .project-tech {
+.projects-page-container .projects-grid .project-card .project-content .project-card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  min-height: 300px;
+}
+.projects-page-container .projects-grid .project-card .project-content .project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 0;
+}
+.projects-page-container .projects-grid .project-card .project-content .project-card .project-content {
+  position: relative;
+  z-index: 1;
+  padding: 25px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 18px;
+}
+.projects-page-container .projects-grid .project-card .project-content ul.project-bullets {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0.5rem 0 1rem;
+  color: #34495e;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.projects-page-container .projects-grid .project-card .project-content ul.project-bullets li {
+  position: relative;
+  list-style: none !important;
+  padding-left: 1.1rem;
+  margin: 0.35rem 0;
+}
+.projects-page-container .projects-grid .project-card .project-content ul.project-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--second-text-color);
+}
+.projects-page-container .projects-grid .project-card .project-content .project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+.projects-page-container .projects-grid .project-card .project-content .project-footer .project-tech {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 20px;
 }
-.projects-page-container .projects-grid .project-card .project-content .project-tech .tech-tag {
+.projects-page-container .projects-grid .project-card .project-content .project-footer .project-tech .tech-tag {
   background-color: var(--primary-color);
   color: #fff;
   padding: 6px 12px;
@@ -249,11 +300,12 @@
   font-size: 0.85rem;
   font-weight: 500;
 }
-.projects-page-container .projects-grid .project-card .project-content .project-links {
+.projects-page-container .projects-grid .project-card .project-content .project-footer .project-links {
   display: flex;
   gap: 8px;
+  flex-shrink: 0;
 }
-.projects-page-container .projects-grid .project-card .project-content .project-links .project-link {
+.projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link {
   display: inline-block;
   padding: 6px 12px;
   text-decoration: none;
@@ -262,20 +314,20 @@
   font-weight: 500;
   transition: all 0.3s ease;
 }
-.projects-page-container .projects-grid .project-card .project-content .project-links .project-link.primary {
+.projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link.primary {
   background-color: var(--primary-color);
   color: #fff;
 }
-.projects-page-container .projects-grid .project-card .project-content .project-links .project-link.primary:hover {
+.projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link.primary:hover {
   background-color: var(--second-text-color);
   transform: scale(1.05);
 }
-.projects-page-container .projects-grid .project-card .project-content .project-links .project-link.secondary {
+.projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link.secondary {
   background-color: transparent;
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
 }
-.projects-page-container .projects-grid .project-card .project-content .project-links .project-link.secondary:hover {
+.projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link.secondary:hover {
   background-color: var(--primary-color);
   color: #fff;
   transform: scale(1.05);
@@ -307,7 +359,45 @@
   color: #34495e;
   margin-bottom: 20px;
 }
-.projects-page-container .contributions-list .contribution-item .contribution-links .contribution-link {
+.projects-page-container .contributions-list .contribution-item ul.project-bullets {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0.5rem 0 1rem;
+  color: #34495e;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.projects-page-container .contributions-list .contribution-item ul.project-bullets li {
+  position: relative;
+  list-style: none !important;
+  padding-left: 1.1rem;
+  margin: 0.35rem 0;
+}
+.projects-page-container .contributions-list .contribution-item ul.project-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--second-text-color);
+}
+.projects-page-container .contributions-list .contribution-item .contribution-links-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+.projects-page-container .contributions-list .contribution-item .contribution-links-row .spacer {
+  flex: 1;
+}
+.projects-page-container .contributions-list .contribution-item .contribution-links-row .contribution-links {
+  display: flex;
+  gap: 8px;
+}
+.projects-page-container .contributions-list .contribution-item .contribution-links-row .contribution-links .contribution-link {
   display: inline-block;
   padding: 8px 16px;
   background-color: var(--primary-color);
@@ -318,7 +408,7 @@
   font-weight: 500;
   transition: all 0.3s ease;
 }
-.projects-page-container .contributions-list .contribution-item .contribution-links .contribution-link:hover {
+.projects-page-container .contributions-list .contribution-item .contribution-links-row .contribution-links .contribution-link:hover {
   background-color: var(--second-text-color);
   transform: scale(1.05);
 }
@@ -363,5 +453,10 @@
   }
   .projects-page-container .projects-grid .project-card .project-content {
     padding: 20px;
+  }
+  .projects-page-container .projects-grid .project-card .project-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 }
