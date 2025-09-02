@@ -363,7 +363,7 @@
 }
 .portfolio-content-container .projects-grid .project-card .project-links {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 .portfolio-content-container .projects-grid .project-card .project-links .project-link {
   display: inline-block;

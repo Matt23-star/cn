@@ -251,11 +251,11 @@
 }
 .projects-page-container .projects-grid .project-card .project-content .project-links {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 .projects-page-container .projects-grid .project-card .project-content .project-links .project-link {
   display: inline-block;
-  padding: 8px 16px;
+  padding: 6px 12px;
   text-decoration: none;
   border-radius: 9px;
   font-size: 0.9rem;
