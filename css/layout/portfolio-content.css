@@ -310,7 +310,7 @@
 .portfolio-content-container .experience-timeline .experience-item .experience-header .experience-period {
   display: inline-block;
   font-size: 0.9rem;
-  color: var(--third-text-color);
+  color: var(--second-text-color);
   background-color: var(--second-background-color);
   padding: 4px 8px;
   border-radius: 9px;
