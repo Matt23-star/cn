@@ -157,10 +157,11 @@
   }
 }
 .home-sidebar-container .sticky-container {
-  position: sticky;
-  top: calc(($navbar-height + 20px));
   height: fit-content;
   z-index: 100;
+}
+.home-sidebar-container .sticky-container-sticky {
+  top: 70px;
 }
 .home-sidebar-container .sidebar-content {
   transition: all 0.3s ease;
