@@ -297,7 +297,7 @@
 .portfolio-content-container .experience-timeline .experience-item .experience-header h3 {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--second-text-color);
   margin-bottom: 5px;
 }
 .portfolio-content-container .experience-timeline .experience-item .experience-header .experience-company {
