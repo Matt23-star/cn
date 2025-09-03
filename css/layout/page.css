@@ -27,8 +27,8 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
-  --skill-tag-bg: #045c96;
-  --skill-tag-text: #fff;
+  --skill-tag-bg: #b5e2ff;
+  --skill-tag-text: #000;
   --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
@@ -127,8 +127,8 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
-  --skill-tag-bg: #045c96;
-  --skill-tag-text: #fff;
+  --skill-tag-bg: #b5e2ff;
+  --skill-tag-text: #000;
   --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
