@@ -191,6 +191,31 @@
   font-size: 0.8rem;
   color: var(--third-text-color);
 }
+.home-sidebar-container .sidebar-content .statistics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) /* 两列并排 */;
+  gap: 12px;
+  margin-top: 16px;
+}
+.home-sidebar-container .sidebar-content .statistics .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.home-sidebar-container .sidebar-content .statistics .item .number {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--second-text-color);
+  margin-bottom: 4px;
+}
+.home-sidebar-container .sidebar-content .statistics .item .label {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  color: var(--third-text-color);
+}
 .home-sidebar-container .sidebar-links {
   overflow: hidden;
 }

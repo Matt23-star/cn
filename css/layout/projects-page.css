@@ -27,6 +27,9 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
+  --skill-tag-bg: #045c96;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
   --note-cyan-title-bg: #1e4e4e;
@@ -74,6 +77,9 @@
   --avatar-background-color: #06c;
   --pjax-progress-bar-color: linear-gradient(45deg, #f10006, #ef5b00, #e59c01, #19ca05, #00cab5, #0264c8, #c303c3);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #e8e8e8 60%, rgba(0,0,0,0) 100%) 1 100%;
+  --skill-tag-bg: #a31405;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #ad2617;
   --note-blue-title-bg: #d6f7fb;
   --note-red-title-bg: #fde9e9;
   --note-cyan-title-bg: #e9fdf9;
@@ -121,6 +127,9 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
+  --skill-tag-bg: #045c96;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
   --note-cyan-title-bg: #1e4e4e;
@@ -170,7 +179,7 @@
   color: var(--second-text-color);
   margin-bottom: 25px;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--skill-tag-bg);
   position: relative;
 }
 .projects-page-container .projects-content .projects-section .section-title:after {
@@ -180,7 +189,7 @@
   left: 0;
   width: 60px;
   height: 2px;
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
 }
 .projects-page-container .projects-grid {
   display: grid;
@@ -293,7 +302,7 @@
   gap: 8px;
 }
 .projects-page-container .projects-grid .project-card .project-content .project-footer .project-tech .tech-tag {
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
   color: #fff;
   padding: 6px 12px;
   border-radius: 9px;
@@ -315,7 +324,7 @@
   transition: all 0.3s ease;
 }
 .projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link.primary {
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
   color: #fff;
 }
 .projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link.primary:hover {
@@ -324,11 +333,11 @@
 }
 .projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link.secondary {
   background-color: transparent;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  color: var(--skill-tag-bg);
+  border: 1px solid var(--skill-tag-bg);
 }
 .projects-page-container .projects-grid .project-card .project-content .project-footer .project-links .project-link.secondary:hover {
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
   color: #fff;
   transform: scale(1.05);
 }
@@ -400,7 +409,7 @@
 .projects-page-container .contributions-list .contribution-item .contribution-links-row .contribution-links .contribution-link {
   display: inline-block;
   padding: 8px 16px;
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
   color: #fff;
   text-decoration: none;
   border-radius: 9px;

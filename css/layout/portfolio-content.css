@@ -27,6 +27,9 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
+  --skill-tag-bg: #045c96;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
   --note-cyan-title-bg: #1e4e4e;
@@ -74,6 +77,9 @@
   --avatar-background-color: #06c;
   --pjax-progress-bar-color: linear-gradient(45deg, #f10006, #ef5b00, #e59c01, #19ca05, #00cab5, #0264c8, #c303c3);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #e8e8e8 60%, rgba(0,0,0,0) 100%) 1 100%;
+  --skill-tag-bg: #a31405;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #ad2617;
   --note-blue-title-bg: #d6f7fb;
   --note-red-title-bg: #fde9e9;
   --note-cyan-title-bg: #e9fdf9;
@@ -121,6 +127,9 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
+  --skill-tag-bg: #045c96;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
   --note-cyan-title-bg: #1e4e4e;
@@ -171,14 +180,11 @@
 .portfolio-content-container .portfolio-section .portfolio-section-title {
   font-size: 2rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--second-text-color);
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--skill-tag-bg);
   position: relative;
-}
-.dark-mode .portfolio-content-container .portfolio-section .portfolio-section-title {
-  color: #e8eaed;
 }
 .portfolio-content-container .portfolio-section .portfolio-section-title:after {
   content: '';
@@ -187,20 +193,17 @@
   left: 0;
   width: 60px;
   height: 2px;
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
 }
 .portfolio-content-container .portfolio-section .portfolio-section-content p {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #2c3e50;
+  color: var(--second-text-color);
   margin-bottom: 15px;
   text-align: justify;
 }
 .portfolio-content-container .portfolio-section .portfolio-section-content p:last-child {
   margin-bottom: 0;
-}
-.dark-mode .portfolio-content-container .portfolio-section .portfolio-section-content p {
-  color: #e8eaed;
 }
 .portfolio-content-container .skills-grid {
   display: grid;
@@ -231,14 +234,11 @@
 .portfolio-content-container .skills-grid .skill-category h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #34495e;
+  color: var(--second-text-color);
   margin-bottom: 15px;
   text-align: center;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border-color);
-}
-.dark-mode .portfolio-content-container .skills-grid .skill-category h3 {
-  color: #e8eaed;
 }
 .portfolio-content-container .skills-grid .skill-category .skill-tags {
   display: flex;
@@ -247,8 +247,8 @@
   justify-content: center;
 }
 .portfolio-content-container .skills-grid .skill-category .skill-tags .skill-tag {
-  background-color: var(--primary-color);
-  color: #fff;
+  background-color: var(--skill-tag-bg);
+  color: var(--skill-tag-text);
   padding: 6px 12px;
   border-radius: 9px;
   font-size: 0.9rem;
@@ -256,7 +256,7 @@
   transition: all 0.3s ease;
 }
 .portfolio-content-container .skills-grid .skill-category .skill-tags .skill-tag:hover {
-  background-color: var(--second-text-color);
+  background-color: var(--skill-tag-hover-bg);
   transform: scale(1.05);
 }
 .portfolio-content-container .experience-timeline {
@@ -270,7 +270,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
 }
 .portfolio-content-container .experience-timeline .experience-item {
   position: relative;
@@ -284,7 +284,7 @@
   top: 8px;
   width: 16px;
   height: 16px;
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
   border-radius: 50%;
   border: 3px solid var(--background-color);
 }
@@ -303,7 +303,7 @@
 .portfolio-content-container .experience-timeline .experience-item .experience-header .experience-company {
   display: inline-block;
   font-size: 1.1rem;
-  color: var(--primary-color);
+  color: var(--skill-tag-bg);
   font-weight: 500;
   margin-right: 15px;
 }
@@ -318,7 +318,7 @@
 .portfolio-content-container .experience-timeline .experience-item p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #34495e;
+  color: var(--third-text-color);
   margin: 0;
 }
 .portfolio-content-container .projects-grid {
@@ -350,7 +350,7 @@
 .portfolio-content-container .projects-grid .project-card h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--second-text-color);
   margin-bottom: 15px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border-color);
@@ -358,7 +358,7 @@
 .portfolio-content-container .projects-grid .project-card p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #34495e;
+  color: var(--second-text-color);
   margin-bottom: 20px;
 }
 .portfolio-content-container .projects-grid .project-card .project-links {
@@ -368,7 +368,7 @@
 .portfolio-content-container .projects-grid .project-card .project-links .project-link {
   display: inline-block;
   padding: 8px 16px;
-  background-color: var(--primary-color);
+  background-color: var(--skill-tag-bg);
   color: #fff;
   text-decoration: none;
   border-radius: 9px;
@@ -400,14 +400,14 @@
 .portfolio-content-container .education-item .education-school {
   display: block;
   font-size: 1.1rem;
-  color: var(--primary-color);
+  color: var(--skill-tag-bg);
   font-weight: 500;
   margin-bottom: 5px;
 }
 .portfolio-content-container .education-item .education-period {
   display: inline-block;
   font-size: 0.9rem;
-  color: #34495e;
+  color: var(--second-text-color);
   background-color: var(--background-color);
   padding: 4px 8px;
   border-radius: 9px;

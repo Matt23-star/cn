@@ -83,6 +83,9 @@
             --selection-color: #0066CC;
             --shadow-color-1: rgba(255, 255, 255, 0.08);
             --shadow-color-2: rgba(255, 255, 255, 0.05);
+            --skill-tag-bg: #045c96;
+            --skill-tag-text: #ffffff;
+            --skill-tag-hover-bg: #2980b9;
         }
         
         :root[data-theme="light"] {
@@ -102,6 +105,9 @@
             --selection-color: #0066CC;
             --shadow-color-1: rgba(0, 0, 0, 0.08);
             --shadow-color-2: rgba(0, 0, 0, 0.05);
+            --skill-tag-bg: #cd1e0a;
+            --skill-tag-text: #ffffff;
+            --skill-tag-hover-bg: #ad2617;
         }
         
         body {
@@ -113,7 +119,7 @@
         :root[data-theme="dark"] body {
             background-color: var(--background-color);
             color: var(--default-text-color);
-        }
+        }  
     </style>
     
     <!-- preconnect -->
@@ -660,15 +666,15 @@
 
         
 
-<div class="statistics flex justify-around my-2.5">
-    <a class="item post-count-item flex flex-col justify-center items-center w-20" href="/blog/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
-        <div class="label text-third-text-color text-sm">Posts</div>
-      </a>
-    <a class="item project-count-item flex flex-col justify-center items-center w-20" href="/projects/">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
-        <div class="label text-third-text-color text-sm">projects</div>
-    </a>
+<div class="statistics">
+  <a class="item" href="/blog/archives">
+    <div class="number">14</div>
+    <div class="label">Posts</div>
+  </a>
+  <a class="item" href="/projects/">
+    <div class="number">6</div>
+    <div class="label">projects</div>
+  </a>
 </div>
     </div>
 

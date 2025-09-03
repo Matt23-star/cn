@@ -76,6 +76,10 @@
   --color-archive-timeline-last-child-color: var(
     --archive-timeline-last-child-color
   );
+  --color-skill-tag-bg: var(--skill-tag-bg);
+  --color-skill-tag-text: var(--skill-tag-text);
+  --color-skill-tag-hover-bg: var(--skill-tag-hover-bg);
+
   --color-note-blue-title-bg: var(--note-blue-title-bg);
   --color-note-red-title-bg: var(--note-red-title-bg);
   --color-note-cyan-title-bg: var(--note-cyan-title-bg);
