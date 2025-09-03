@@ -155,8 +155,11 @@
   box-shadow: 0 8px 32px var(--border-color);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-color);
-  margin: 20px;
+  margin: 20px auto;
   margin-top: 20px;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
 }
 .portfolio-content-container .portfolio-section {
   margin-bottom: 40px;
@@ -210,6 +213,9 @@
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .portfolio-content-container .skills-grid .skill-category:hover {
   transform: translateY(-5px);
@@ -320,6 +326,9 @@
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .portfolio-content-container .projects-grid .project-card:hover {
   transform: translateY(-5px);
@@ -427,6 +436,10 @@
   text-align: left;
 }
 @media (max-width: 768px) {
+  .portfolio-content-container {
+    max-width: 900px;
+    padding: 15px;
+  }
   .portfolio-content-container .skills-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
@@ -441,7 +454,8 @@
 }
 @media (max-width: 640px) {
   .portfolio-content-container {
-    padding: 15px 0;
+    max-width: 100%;
+    padding: 15px;
   }
   .portfolio-content-container .portfolio-section {
     margin-bottom: 30px;
