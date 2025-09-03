@@ -423,7 +423,8 @@
   font-size: 1rem;
   line-height: 1.6;
   color: var(--third-text-color);
-  margin: 0;
+  margin-bottom: 20px;
+  text-align: left;
 }
 @media (max-width: 768px) {
   .portfolio-content-container .skills-grid {
