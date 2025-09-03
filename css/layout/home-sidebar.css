@@ -27,6 +27,9 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
+  --skill-tag-bg: #045c96;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
   --note-cyan-title-bg: #1e4e4e;
@@ -74,6 +77,9 @@
   --avatar-background-color: #06c;
   --pjax-progress-bar-color: linear-gradient(45deg, #f10006, #ef5b00, #e59c01, #19ca05, #00cab5, #0264c8, #c303c3);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #e8e8e8 60%, rgba(0,0,0,0) 100%) 1 100%;
+  --skill-tag-bg: #962c37;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #ad2617;
   --note-blue-title-bg: #d6f7fb;
   --note-red-title-bg: #fde9e9;
   --note-cyan-title-bg: #e9fdf9;
@@ -121,6 +127,9 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
+  --skill-tag-bg: #045c96;
+  --skill-tag-text: #fff;
+  --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
   --note-cyan-title-bg: #1e4e4e;
@@ -193,7 +202,7 @@
 }
 .home-sidebar-container .sidebar-content .statistics {
   display: grid;
-  grid-template-columns: repeat(2, 1fr) /* 两列并排 */;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 16px;
 }
@@ -213,6 +222,7 @@
 }
 .home-sidebar-container .sidebar-content .statistics .item .label {
   font-size: 0.8rem;
+  font-weight: 500;
   line-height: 1.2;
   color: var(--third-text-color);
 }
