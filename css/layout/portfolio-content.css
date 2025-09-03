@@ -358,8 +358,9 @@
 .portfolio-content-container .projects-grid .project-card p {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--second-text-color);
+  color: var(--third-text-color);
   margin-bottom: 20px;
+  text-align: left;
 }
 .portfolio-content-container .projects-grid .project-card .project-links {
   display: flex;
