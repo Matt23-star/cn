@@ -27,8 +27,8 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
-  --skill-tag-bg: #045c96;
-  --skill-tag-text: #fff;
+  --skill-tag-bg: #b5e2ff;
+  --skill-tag-text: #000;
   --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
@@ -127,8 +127,8 @@
   --avatar-background-color: #005cb8;
   --pjax-progress-bar-color: linear-gradient(45deg, #ea404a, #ea722f, #e9a71f, #67e559, #18ecec, #1b85f1, #ee1dee);
   --archive-timeline-last-child-color: linear-gradient(to bottom, #323232 60%, rgba(255,255,255,0) 100%) 1 100%;
-  --skill-tag-bg: #045c96;
-  --skill-tag-text: #fff;
+  --skill-tag-bg: #b5e2ff;
+  --skill-tag-text: #000;
   --skill-tag-hover-bg: #2980b9;
   --note-blue-title-bg: #1e3e46;
   --note-red-title-bg: #4e1e1e;
@@ -150,29 +150,21 @@
 }
 .portfolio-content-container {
   padding: 20px;
-  background-color: rgba(255,255,255,0.6);
+  background-color: var(--background-color-transparent);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 32px var(--border-color);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid var(--border-color);
   margin: 20px;
   margin-top: 20px;
-}
-.dark-mode .portfolio-content-container {
-  background-color: rgba(32,33,36,0.6);
-  border: 1px solid rgba(255,255,255,0.15);
 }
 .portfolio-content-container .portfolio-section {
   margin-bottom: 40px;
   padding: 25px;
-  background-color: rgba(255,255,255,0.4);
+  background-color: var(--background-color-transparent-40);
   border-radius: 15px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid var(--border-color);
   backdrop-filter: blur(5px);
-}
-.dark-mode .portfolio-content-container .portfolio-section {
-  background-color: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
 }
 .portfolio-content-container .portfolio-section:last-child {
   margin-bottom: 0;
@@ -200,7 +192,7 @@
   line-height: 1.7;
   color: var(--second-text-color);
   margin-bottom: 15px;
-  text-align: justify;
+  text-align: left;
 }
 .portfolio-content-container .portfolio-section .portfolio-section-content p:last-child {
   margin-bottom: 0;
@@ -212,24 +204,17 @@
   margin-top: 20px;
 }
 .portfolio-content-container .skills-grid .skill-category {
-  background-color: rgba(255,255,255,0.5);
+  background-color: var(--background-color-transparent);
   padding: 20px;
   border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
-}
-.dark-mode .portfolio-content-container .skills-grid .skill-category {
-  background-color: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
 }
 .portfolio-content-container .skills-grid .skill-category:hover {
   transform: translateY(-5px);
   box-shadow: var(--redefine-box-shadow);
-  background-color: rgba(255,255,255,0.8);
-}
-.dark-mode .portfolio-content-container .skills-grid .skill-category:hover {
-  background-color: rgba(255,255,255,0.12);
+  background-color: var(--background-color-transparent-80);
 }
 .portfolio-content-container .skills-grid .skill-category h3 {
   font-size: 1.3rem;
@@ -320,6 +305,7 @@
   line-height: 1.6;
   color: var(--third-text-color);
   margin: 0;
+  text-align: left;
 }
 .portfolio-content-container .projects-grid {
   display: grid;
@@ -328,24 +314,17 @@
   margin-top: 20px;
 }
 .portfolio-content-container .projects-grid .project-card {
-  background-color: rgba(255,255,255,0.5);
+  background-color: var(--background-color-transparent);
   padding: 25px;
   border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
-}
-.dark-mode .portfolio-content-container .projects-grid .project-card {
-  background-color: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
 }
 .portfolio-content-container .projects-grid .project-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--redefine-box-shadow);
-  background-color: rgba(255,255,255,0.8);
-}
-.dark-mode .portfolio-content-container .projects-grid .project-card:hover {
-  background-color: rgba(255,255,255,0.12);
+  background-color: var(--background-color-transparent-80);
 }
 .portfolio-content-container .projects-grid .project-card h3 {
   font-size: 1.3rem;
@@ -381,16 +360,42 @@
   background-color: var(--second-text-color);
   transform: scale(1.05);
 }
+.portfolio-content-container .education-timeline {
+  position: relative;
+  padding-left: 30px;
+}
+.portfolio-content-container .education-timeline:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--skill-tag-bg);
+}
 .portfolio-content-container .education-item {
-  background-color: rgba(255,255,255,0.5);
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 30px;
+  background-color: var(--background-color-transparent);
   padding: 25px;
   border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid var(--border-color);
   backdrop-filter: blur(5px);
 }
-.dark-mode .portfolio-content-container .education-item {
-  background-color: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
+.portfolio-content-container .education-item:before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 25px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--skill-tag-bg);
+  border-radius: 50%;
+  border: 3px solid var(--background-color);
+}
+.portfolio-content-container .education-item:last-child {
+  margin-bottom: 0;
 }
 .portfolio-content-container .education-item h3 {
   font-size: 1.3rem;
@@ -417,7 +422,7 @@
 .portfolio-content-container .education-item p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #34495e;
+  color: var(--third-text-color);
   margin: 0;
 }
 @media (max-width: 768px) {
